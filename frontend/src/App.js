@@ -1,6 +1,7 @@
 import { useState } from "react";
+import logo from "./assets/logo.png";
 
-const LOGO_B64 = "C:\Users\Asus\Downloads\Black_and_Orange_Modern_Delivery_Services_Logo-removebg-preview.png";
+const LOGO_B64 = logo;
 
 const theme = {
   light: {
@@ -279,7 +280,7 @@ function LoginScreen({ onLogin, isDark, toggleTheme, t }) {
         {/* Greeting */}
         <div style={{ marginBottom: 26 }}>
           <div style={{ fontSize: 26, fontWeight: 800, color: t.text, letterSpacing: "-0.05em", ...display }}>
-            {tab === "signin" ? "Welcome back 👋" : "Join NEXA 🚀"}
+            {tab === "signin" ? "Welcome back " : "Join NEXA 🚀"}
           </div>
           <div style={{ fontSize: 14, color: t.text3, marginTop: 6 }}>
             {tab === "signin" ? "Sign in to your account to continue." : "Create your account and start contributing."}
@@ -357,10 +358,43 @@ function NewTaskScreen({ t, onBack, onSubmit }) {
   };
   const inputStyle = { ...selectStyle };
 
-  const handleSubmit = () => {
+const handleSubmit = async () => {
+
+  try {
+
+    // Send task to backend
+    const response = await fetch(
+      "http://172.18.235.117:8000/create_task",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          code: "print('Hello from Worker 🚀')"
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    console.log("Task Response:", data);
+
+    // Show success animation
     setSubmitted(true);
-    setTimeout(() => { onSubmit(); }, 1200);
-  };
+
+    setTimeout(() => {
+      onSubmit();
+    }, 1200);
+
+  } catch (error) {
+
+    console.error("Task failed:", error);
+
+    alert("Task submission failed!");
+
+  }
+};
 
   if (submitted) {
     return (
@@ -473,7 +507,7 @@ function NewTaskScreen({ t, onBack, onSubmit }) {
 function DashboardScreen({ t, isDark, toggleTheme, navigate }) {
   const resources = [
     { name: "CPU load", val: "68%", pct: 68, color: "linear-gradient(90deg, #7a6cff, #8d7dff)" },
-    { name: "GPU — RTX 3080", val: "82%", pct: 82, color: "linear-gradient(90deg, #ff8fb1, #9b6bff)" },
+    { name: "GPU RTX", val: "82%", pct: 82, color: "linear-gradient(90deg, #ff8fb1, #9b6bff)" },
     { name: "Memory", val: "12.4 / 32 GB", pct: 39, color: "linear-gradient(90deg, #58d3ff, #58c0c7)" },
   ];
   return (
@@ -491,9 +525,9 @@ function DashboardScreen({ t, isDark, toggleTheme, navigate }) {
               <Badge color="#bbf7d0" bg="rgba(255,255,255,0.14)">Live</Badge>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
-              <StatCard label="Peers" value="2,847" sub="+12 today" />
-              <StatCard label="Active" value="1,204" sub="healthy nodes" />
-              <StatCard label="Jobs" value="348" sub="in progress" />
+              <StatCard label="Peers" value="20+" sub="+12 today" />
+              <StatCard label="Active" value="12+" sub="healthy nodes" />
+              <StatCard label="Jobs" value="3+" sub="in progress" />
             </div>
           </div>
         </Card>
@@ -510,10 +544,8 @@ function MarketScreen({ t }) {
   const [filter, setFilter] = useState("All");
   const filters = ["All", "GPU", "CPU", "Available", "High Trust"];
   const machines = [
-    { name: "titan-node-04", owner: "@research_lab_berlin", cpu: "64c", gpu: "A100", ram: "256GB", status: "Online", trust: 94, rating: 4.9 },
-    { name: "gpu-workstation-12", owner: "@alex_ml", cpu: "16c", gpu: "RTX 4090", ram: "64GB", status: "Online", trust: 88, rating: 4.7 },
-    { name: "cpu-cluster-07", owner: "@datacentre_sg", cpu: "128c", gpu: "None", ram: "512GB", status: "Busy", trust: 91, rating: 4.8 },
-    { name: "edge-node-22", owner: "@priya_dev", cpu: "8c", gpu: "RTX 3070", ram: "32GB", status: "Online", trust: 79, rating: 4.5 },
+    { name: "LAPTOP-0I4EAMMN", ip: "172.18.234.163", cpu: "8C", gpu: "None", ram: "64GB", status: "free", status: "Online", trust: 94, rating: 4.9 },
+   
   ];
   return (
     <div className="screen-enter">
@@ -530,15 +562,8 @@ function MarketScreen({ t }) {
 function JobsScreen({ t, onNewTask }) {
   const sections = [
     { label: "Running", jobs: [
-      { name: "Diffusion Model Training", type: "ML Training - GPU", node: "titan-node-04", runtime: "2h 14m", status: "Running", pct: 64, color: "linear-gradient(90deg, #7a6cff, #9b6bff)" },
-      { name: "Protein Fold Simulation", type: "Research - CPU Cluster", node: "cpu-cluster-07", runtime: "5h 02m", status: "Running", pct: 31, color: "linear-gradient(90deg, #ff8fb1, #9b6bff)" },
-    ]},
-    { label: "Queued", jobs: [
-      { name: "LLM Fine-tuning Batch", type: "NLP - GPU", node: "Pending", runtime: "~18 min", status: "Queued", pct: null, color: "linear-gradient(90deg, #ffb34d, #ffd66e)" },
-    ]},
-    { label: "Completed", jobs: [
-      { name: "Image Classifier v2", type: "CV Training - GPU", node: "gpu-ws-12", runtime: "3h 44m", status: "Done", pct: 100, color: "linear-gradient(90deg, #22c55e, #6ee7b7)" },
-    ]},
+      { name: "ML Model Training", type: "ML Training - GPU", node: "LAPTOP-0I4EAMMN", runtime: "4h", status: "Running", pct: 64, color: "linear-gradient(90deg, #7a6cff, #9b6bff)" },
+      ]},
   ];
   const statusColors = { Running: [t.accent, t.accentSoft], Queued: [t.amber, t.amberSoft], Done: [t.green, t.greenSoft] };
   return (
@@ -561,9 +586,7 @@ function TrustScreen({ t }) {
     { label: "Response Time", sub: "Avg. job acceptance", val: "1.4s", pct: 88, color: "linear-gradient(90deg, #ffb34d, #ffcf70)" },
   ];
   const leaders = [
-    { rank: 1, initials: "RK", name: "ram_krishna_ml", score: 98, color: t.amber, bg: "rgba(245,158,11,0.14)" },
-    { rank: 2, initials: "ZW", name: "zara_workstation", score: 95, color: t.accent2, bg: "rgba(255,138,180,0.14)" },
-    { rank: 3, initials: "PM", name: "priya_ml_nodes", score: 92, color: t.accent, bg: "rgba(122,108,255,0.12)" },
+    { rank: 1, initials: "AS", name: "Anushka Sarkar", score: 98, color: t.amber, bg: "rgba(245,158,11,0.14)" },
   ];
   return (
     <div className="screen-enter">
@@ -572,7 +595,7 @@ function TrustScreen({ t }) {
         <Card t={t} elevated style={{ padding: 22, background: "linear-gradient(145deg, #3b2b8c 0%, #5b3fcf 44%, #8b62ff 100%)", color: "#fff", marginBottom: 16, position: "relative", overflow: "hidden" }}><div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 16% 18%, rgba(255,255,255,0.14) 0%, transparent 28%), radial-gradient(circle at 82% 76%, rgba(255,145,185,0.18) 0%, transparent 26%)" }} /><div style={{ display: "flex", alignItems: "center", gap: 18, position: "relative", zIndex: 1 }}><div style={{ width: 88, height: 88, borderRadius: "50%", flexShrink: 0, background: "conic-gradient(#7df0d2 0% 87%, rgba(255,255,255,0.18) 87% 100%)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}><div style={{ position: "absolute", inset: 9, borderRadius: "50%", background: "linear-gradient(145deg, #4b35a8, #6f53e6)" }} /><span style={{ position: "relative", zIndex: 1, fontSize: 24, fontWeight: 800, color: "#fff", ...mono }}>87</span></div><div><div style={{ fontSize: 11, color: "rgba(255,255,255,0.72)", textTransform: "uppercase", letterSpacing: "0.12em" }}>Your score</div><div style={{ fontSize: 32, fontWeight: 800, marginTop: 6, letterSpacing: "-0.06em", ...mono }}>87 / 100</div><div style={{ fontSize: 13, color: "#f3ddff", marginTop: 8, fontWeight: 700 }}>Verified Node Provider</div></div></div></Card>
         <div style={{ marginBottom: 16 }}><SectionLabel t={t}>Metrics Breakdown</SectionLabel><Card t={t} style={{ padding: 18 }}>{metrics.map((metric, index) => <div key={metric.label} style={{ marginBottom: index < metrics.length - 1 ? 18 : 0 }}><div style={{ display: "flex", justifyContent: "space-between" }}><div><div style={{ fontSize: 14, fontWeight: 700, color: t.text }}>{metric.label}</div><div style={{ fontSize: 12, color: t.text3, marginTop: 4 }}>{metric.sub}</div></div><div style={{ fontSize: 13, fontWeight: 800, color: t.text, ...mono }}>{metric.val}</div></div><ProgBar pct={metric.pct} color={metric.color} /></div>)}</Card></div>
         <SectionLabel t={t}>Leaderboard</SectionLabel>
-        <Card t={t} style={{ padding: 18 }}>{leaders.map((leader, index) => <div key={leader.rank} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderTop: index > 0 ? `1px solid ${t.border}` : "none" }}><div style={{ width: 24, textAlign: "center", fontSize: 13, color: t.text3, fontWeight: 800, ...mono }}>{leader.rank}</div><div style={{ width: 40, height: 40, borderRadius: "50%", background: leader.bg, color: leader.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>{leader.initials}</div><div style={{ flex: 1, fontSize: 14, fontWeight: 700, color: t.text }}>{leader.name}</div><div style={{ fontSize: 12, color: t.text2, ...mono }}>{leader.score} pts</div></div>)}<div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 12px", background: t.accentSoft, borderRadius: 20, marginTop: 10 }}><div style={{ width: 24, textAlign: "center", fontSize: 13, color: t.accent, fontWeight: 800, ...mono }}>7</div><div style={{ width: 40, height: 40, borderRadius: "50%", border: `2px solid ${t.accent}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: t.accent, flexShrink: 0 }}>AC</div><div style={{ flex: 1, fontSize: 14, fontWeight: 800, color: t.text }}>alex_chen (you)</div><div style={{ fontSize: 12, color: t.accent, ...mono }}>87 pts</div></div></Card>
+        <Card t={t} style={{ padding: 18 }}>{leaders.map((leader, index) => <div key={leader.rank} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderTop: index > 0 ? `1px solid ${t.border}` : "none" }}><div style={{ width: 24, textAlign: "center", fontSize: 13, color: t.text3, fontWeight: 800, ...mono }}>{leader.rank}</div><div style={{ width: 40, height: 40, borderRadius: "50%", background: leader.bg, color: leader.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>{leader.initials}</div><div style={{ flex: 1, fontSize: 14, fontWeight: 700, color: t.text }}>{leader.name}</div><div style={{ fontSize: 12, color: t.text2, ...mono }}>{leader.score} pts</div></div>)}<div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 12px", background: t.accentSoft, borderRadius: 20, marginTop: 10 }}><div style={{ width: 24, textAlign: "center", fontSize: 13, color: t.accent, fontWeight: 800, ...mono }}>7</div><div style={{ width: 40, height: 40, borderRadius: "50%", border: `2px solid ${t.accent}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: t.accent, flexShrink: 0 }}>AP</div><div style={{ flex: 1, fontSize: 14, fontWeight: 800, color: t.text }}>Anwita Padhi (you)</div><div style={{ fontSize: 12, color: t.accent, ...mono }}>87 pts</div></div></Card>
       </div>
     </div>
   );
@@ -580,17 +603,15 @@ function TrustScreen({ t }) {
 
 // ─── REWARDS ──────────────────────────────────────────────────────────────────
 function RewardsScreen({ t }) {
-  const stats = [["This Week", "240", "+18%"], ["This Month", "980", "+24%"], ["GPU Hours", "312h", "contributed"], ["Jobs Served", "61", "lifetime"]];
+  const stats = [["This Week", "20", "+18%"], ["This Month", "90", "+24%"], ["GPU Hours", "12h", "contributed"], ["Jobs Served", "5", "lifetime"]];
   const txns = [
-    { label: "GPU Task: Diffusion Model", time: "Today, 14:22", amount: "+120", positive: true },
-    { label: "CPU Task: Data Pipeline", time: "Yesterday, 09:14", amount: "+55", positive: true },
-    { label: "Redeemed for Compute", time: "Mar 28, 11:05", amount: "-200", positive: false },
+    { label: "GPU Task: ML Model", time: "Today, 2:40", amount: "+120", positive: true },
   ];
   return (
     <div className="screen-enter">
       <TopBar label="Rewards" title="Credits" subtitle="A calmer, clearer view of what your contribution is earning." t={t} />
       <div style={{ padding: "6px 16px 28px" }}>
-        <Card t={t} elevated style={{ padding: 22, marginBottom: 16, background: "linear-gradient(145deg, #31258a 0%, #5b3fcf 44%, #9a72ff 100%)", color: "#fff", position: "relative", overflow: "hidden" }}><div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 18% 18%, rgba(255,255,255,0.16) 0%, transparent 28%), radial-gradient(circle at 88% 78%, rgba(255,145,185,0.22) 0%, transparent 26%)" }} /><div style={{ position: "relative", zIndex: 1 }}><div style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.12em" }}>Available credits</div><div style={{ fontSize: 42, fontWeight: 800, marginTop: 8, letterSpacing: "-0.07em", ...mono }}>2,840</div><div style={{ fontSize: 14, color: "rgba(255,255,255,0.78)", marginTop: 6 }}>Approx. $28.40 USD</div><div style={{ display: "flex", gap: 10, marginTop: 20 }}><button style={{ flex: 1, padding: 13, borderRadius: 18, border: "none", background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", fontSize: 13, fontWeight: 800, cursor: "pointer" }}>Cash Out</button><button style={{ flex: 1, padding: 13, borderRadius: 18, background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", border: "none", fontSize: 13, fontWeight: 800, cursor: "pointer" }}>Redeem</button></div></div></Card>
+        <Card t={t} elevated style={{ padding: 22, marginBottom: 16, background: "linear-gradient(145deg, #31258a 0%, #5b3fcf 44%, #9a72ff 100%)", color: "#fff", position: "relative", overflow: "hidden" }}><div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 18% 18%, rgba(255,255,255,0.16) 0%, transparent 28%), radial-gradient(circle at 88% 78%, rgba(255,145,185,0.22) 0%, transparent 26%)" }} /><div style={{ position: "relative", zIndex: 1 }}><div style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.12em" }}>Available credits</div><div style={{ fontSize: 42, fontWeight: 800, marginTop: 8, letterSpacing: "-0.07em", ...mono }}>30</div><div style={{ fontSize: 14, color: "rgba(255,255,255,0.78)", marginTop: 6 }}>Approx 5400 INR</div><div style={{ display: "flex", gap: 10, marginTop: 20 }}><button style={{ flex: 1, padding: 13, borderRadius: 18, border: "none", background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", fontSize: 13, fontWeight: 800, cursor: "pointer" }}>Cash Out</button><button style={{ flex: 1, padding: 13, borderRadius: 18, background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", border: "none", fontSize: 13, fontWeight: 800, cursor: "pointer" }}>Redeem</button></div></div></Card>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>{stats.map(([label, value, change]) => <Card key={label} t={t} style={{ padding: 16, borderRadius: 24 }}><div style={{ fontSize: 10, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 8 }}>{label}</div><div style={{ fontSize: 24, fontWeight: 800, color: t.text, letterSpacing: "-0.05em", ...mono }}>{value}</div><div style={{ fontSize: 11, color: change.startsWith("+") ? t.green : t.text3, marginTop: 5, fontWeight: 700 }}>{change}</div></Card>)}</div>
         <SectionLabel t={t}>Recent Transactions</SectionLabel>
         <Card t={t} style={{ padding: 18 }}>{txns.map((txn, index) => <div key={txn.label} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderTop: index > 0 ? `1px solid ${t.border}` : "none" }}><div style={{ width: 40, height: 40, borderRadius: "50%", background: txn.positive ? t.greenSoft : t.redSoft, color: txn.positive ? t.green : t.red, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{txn.positive ? <Icon.TrendUp /> : <Icon.TrendDown />}</div><div style={{ flex: 1 }}><div style={{ fontSize: 14, fontWeight: 700, color: t.text }}>{txn.label}</div><div style={{ fontSize: 11, color: t.text3, marginTop: 4, ...mono }}>{txn.time}</div></div><div style={{ fontSize: 14, fontWeight: 800, color: txn.positive ? t.green : t.red, ...mono }}>{txn.amount}</div></div>)}</Card>
