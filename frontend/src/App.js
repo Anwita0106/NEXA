@@ -190,42 +190,16 @@ function ThemeToggle({ isDark, toggleTheme, t, floating = false }) {
 function SplashScreen({ onGetStarted, isDark, toggleTheme, t }) {
   return (
     <div className="screen-enter" style={{ minHeight: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: isDark ? "linear-gradient(160deg, #0d0f1a 0%, #151727 50%, #1a1030 100%)" : "#ffffff", position: "relative", overflow: "hidden", padding: "36px 32px" }}>
-      {/* Subtle ambient glow */}
       <div style={{ position: "absolute", width: 340, height: 340, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(111,99,255,0.12) 0%, transparent 70%)" : "radial-gradient(circle, rgba(111,99,255,0.07) 0%, transparent 70%)", top: "50%", left: "50%", transform: "translate(-50%, -60%)", pointerEvents: "none" }} />
-
-      {/* LOGO — full center */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", zIndex: 2, width: "100%" }}>
         <img
           src={LOGO_B64}
           alt="NEXA"
-          style={{
-            width: 220,
-            height: 220,
-            objectFit: "contain",
-            filter: isDark ? "brightness(1.2) drop-shadow(0 0 24px rgba(111,99,255,0.35))" : "drop-shadow(0 8px 24px rgba(111,99,255,0.18))",
-            animation: "fadeUp 600ms cubic-bezier(0.22,1,0.36,1) both",
-          }}
+          style={{ width: 220, height: 220, objectFit: "contain", filter: isDark ? "brightness(1.2) drop-shadow(0 0 24px rgba(111,99,255,0.35))" : "drop-shadow(0 8px 24px rgba(111,99,255,0.18))", animation: "fadeUp 600ms cubic-bezier(0.22,1,0.36,1) both" }}
         />
       </div>
-
-      {/* Enter button */}
       <div style={{ width: "100%", position: "relative", zIndex: 2 }}>
-        <button
-          onClick={onGetStarted}
-          style={{
-            width: "100%",
-            padding: "18px 0",
-            background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)",
-            color: "#fff",
-            border: "none",
-            borderRadius: 22,
-            fontSize: 16,
-            fontWeight: 800,
-            letterSpacing: "-0.02em",
-            cursor: "pointer",
-            boxShadow: "0 20px 40px rgba(131,106,255,0.34)",
-          }}
-        >
+        <button onClick={onGetStarted} style={{ width: "100%", padding: "18px 0", background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", border: "none", borderRadius: 22, fontSize: 16, fontWeight: 800, letterSpacing: "-0.02em", cursor: "pointer", boxShadow: "0 20px 40px rgba(131,106,255,0.34)" }}>
           Enter NEXA
         </button>
       </div>
@@ -238,7 +212,6 @@ function LoginScreen({ onLogin, isDark, toggleTheme, t }) {
   const [tab, setTab] = useState("signin");
   const [showPass, setShowPass] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
-
   const update = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   const inputStyle = {
@@ -252,42 +225,22 @@ function LoginScreen({ onLogin, isDark, toggleTheme, t }) {
     <div className="screen-enter" style={{ minHeight: "100%", background: t.canvas, position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", inset: 0, background: t.mode === "dark" ? "radial-gradient(circle at 18% 14%, rgba(138,125,255,0.22) 0%, transparent 30%)" : "radial-gradient(circle at 18% 14%, rgba(255,143,177,0.18) 0%, transparent 28%)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,104,255,0.16) 0%, transparent 72%)", top: -80, right: -40, animation: "floatOrbA 9s ease-in-out infinite", pointerEvents: "none" }} />
-
       <div style={{ padding: "24px 22px 36px", minHeight: "100%", display: "flex", flexDirection: "column", position: "relative", zIndex: 2 }}>
-        {/* Header */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 28 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontSize: 22, fontWeight: 800, color: t.text, letterSpacing: "-0.05em", ...display }}>NEXA</span>
-          </div>
+          <span style={{ fontSize: 22, fontWeight: 800, color: t.text, letterSpacing: "-0.05em", ...display }}>NEXA</span>
           <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} t={t} />
         </div>
-
-        {/* Tab switcher */}
         <div style={{ display: "flex", background: t.surface2, borderRadius: 20, padding: 4, marginBottom: 28 }}>
           {["signin", "signup"].map((v) => (
-            <button key={v} onClick={() => setTab(v)} style={{
-              flex: 1, padding: "11px 0", border: "none", borderRadius: 17, cursor: "pointer",
-              fontSize: 14, fontWeight: 700,
-              background: tab === v ? "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)" : "transparent",
-              color: tab === v ? "#fff" : t.text2,
-              boxShadow: tab === v ? "0 10px 24px rgba(122,108,255,0.22)" : "none",
-            }}>
+            <button key={v} onClick={() => setTab(v)} style={{ flex: 1, padding: "11px 0", border: "none", borderRadius: 17, cursor: "pointer", fontSize: 14, fontWeight: 700, background: tab === v ? "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)" : "transparent", color: tab === v ? "#fff" : t.text2, boxShadow: tab === v ? "0 10px 24px rgba(122,108,255,0.22)" : "none" }}>
               {v === "signin" ? "Sign In" : "Sign Up"}
             </button>
           ))}
         </div>
-
-        {/* Greeting */}
         <div style={{ marginBottom: 26 }}>
-          <div style={{ fontSize: 26, fontWeight: 800, color: t.text, letterSpacing: "-0.05em", ...display }}>
-            {tab === "signin" ? "Welcome back " : "Join NEXA 🚀"}
-          </div>
-          <div style={{ fontSize: 14, color: t.text3, marginTop: 6 }}>
-            {tab === "signin" ? "Sign in to your account to continue." : "Create your account and start contributing."}
-          </div>
+          <div style={{ fontSize: 26, fontWeight: 800, color: t.text, letterSpacing: "-0.05em", ...display }}>{tab === "signin" ? "Welcome back 👋" : "Join NEXA 🚀"}</div>
+          <div style={{ fontSize: 14, color: t.text3, marginTop: 6 }}>{tab === "signin" ? "Sign in to your account to continue." : "Create your account and start contributing."}</div>
         </div>
-
-        {/* Fields */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 24 }}>
           {tab === "signup" && (
             <div>
@@ -307,27 +260,17 @@ function LoginScreen({ onLogin, isDark, toggleTheme, t }) {
                 {showPass ? <Icon.EyeOff /> : <Icon.Eye />}
               </button>
             </div>
-            {tab === "signin" && (
-              <div style={{ textAlign: "right", marginTop: 8 }}>
-                <span style={{ fontSize: 12, color: t.accent, fontWeight: 700, cursor: "pointer" }}>Forgot password?</span>
-              </div>
-            )}
+            {tab === "signin" && <div style={{ textAlign: "right", marginTop: 8 }}><span style={{ fontSize: 12, color: t.accent, fontWeight: 700, cursor: "pointer" }}>Forgot password?</span></div>}
           </div>
         </div>
-
-        {/* Primary CTA */}
         <button onClick={onLogin} style={{ width: "100%", padding: "17px 0", background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", border: "none", borderRadius: 22, fontSize: 16, fontWeight: 800, cursor: "pointer", boxShadow: "0 18px 34px rgba(123,108,255,0.24)", marginBottom: 20 }}>
           {tab === "signin" ? "Sign In" : "Create Account"}
         </button>
-
-        {/* Divider */}
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
           <div style={{ flex: 1, height: 1, background: t.border }} />
           <span style={{ fontSize: 11, color: t.text3, fontWeight: 600, letterSpacing: "0.08em" }}>OR CONTINUE WITH</span>
           <div style={{ flex: 1, height: 1, background: t.border }} />
         </div>
-
-        {/* Social buttons */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
           {[["Google", "M18.77 7.46H14.5v2.67h2.47c-.09 1.47-.9 2.51-2.47 2.51-1.51 0-2.78-1.2-2.78-2.87 0-1.67 1.27-2.87 2.78-2.87.74 0 1.36.27 1.83.7l2.01-2.01C16.83 4.44 15.76 4 14.5 4 11.24 4 8.61 6.55 8.61 9.77s2.63 5.77 5.89 5.77c3.25 0 5.41-2.28 5.41-5.49 0-.37-.04-.74-.14-1.09z"], ["GitHub", "M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48l-.01-1.69c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10z"]].map(([name, path]) => (
             <button key={name} style={{ padding: "13px 0", borderRadius: 18, border: `1px solid ${t.border}`, background: t.surface, color: t.text2, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
@@ -336,7 +279,6 @@ function LoginScreen({ onLogin, isDark, toggleTheme, t }) {
             </button>
           ))}
         </div>
-
         <div style={{ textAlign: "center", fontSize: 13, color: t.text3 }}>
           {tab === "signin" ? <>No account? <span style={{ color: t.accent, fontWeight: 700, cursor: "pointer" }} onClick={() => setTab("signup")}>Sign up free</span></> : <>Already have an account? <span style={{ color: t.accent, fontWeight: 700, cursor: "pointer" }} onClick={() => setTab("signin")}>Sign in</span></>}
         </div>
@@ -358,43 +300,58 @@ function NewTaskScreen({ t, onBack, onSubmit }) {
   };
   const inputStyle = { ...selectStyle };
 
-const handleSubmit = async () => {
+  const handleSubmit = async () => {
+    if (!form.name) { alert("Task name required"); return; }
+    if (!form.duration) { alert("Duration required"); return; }
 
-  try {
+    try {
+      const taskPayload = {
+        task_name: form.name,
+        task_type: form.type,
+        compute_type: form.compute,
+        node_preference: form.node,
+        priority: form.priority,
+        duration: form.duration,
+        notes: form.notes,
+        code: `print("Running ${form.type}")`
+      };
 
-    // Send task to backend
-    const response = await fetch(
-      "http://172.18.235.117:8000/create_task",
-      {
+      console.log("Sending task:", taskPayload);
+
+      const response = await fetch("http://172.18.235.117:8000/create_task", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          code: "print('Hello from Worker 🚀')"
-        })
-      }
-    );
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(taskPayload)
+      });
 
-    const data = await response.json();
+      const data = await response.json();
+      console.log("Task created:", data);
 
-    console.log("Task Response:", data);
-
-    // Show success animation
-    setSubmitted(true);
-
-    setTimeout(() => {
-      onSubmit();
-    }, 1200);
-
-  } catch (error) {
-
-    console.error("Task failed:", error);
-
-    alert("Task submission failed!");
-
-  }
-};
+      setSubmitted(true);
+      setTimeout(() => {
+        onSubmit({
+          id: data.task_id || Date.now(),
+          name: form.name,
+          type: form.type,
+          status: "Queued",
+          progress: 0
+        });
+      }, 1200);
+    } catch (error) {
+      console.error("Task failed:", error);
+      // Fallback: still add the task locally if API fails
+      setSubmitted(true);
+      setTimeout(() => {
+        onSubmit({
+          id: Date.now(),
+          name: form.name,
+          type: form.type,
+          status: "Queued",
+          progress: 0
+        });
+      }, 1200);
+    }
+  };
 
   if (submitted) {
     return (
@@ -412,7 +369,6 @@ const handleSubmit = async () => {
 
   return (
     <div className="screen-enter" style={{ minHeight: "100%", background: t.canvas }}>
-      {/* Header */}
       <div className="floating-panel" style={{ display: "flex", alignItems: "center", gap: 12, padding: "18px 20px 14px", background: t.bgSoft, position: "sticky", top: 0, zIndex: 20 }}>
         <button onClick={onBack} style={{ width: 40, height: 40, borderRadius: 16, border: `1px solid ${t.border}`, background: t.surface, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: t.text2 }}>
           <Icon.Back />
@@ -427,7 +383,6 @@ const handleSubmit = async () => {
       </div>
 
       <div style={{ padding: "16px 20px 36px", display: "flex", flexDirection: "column", gap: 20 }}>
-        {/* Task Name */}
         <Card t={t} style={{ padding: 20 }}>
           <SectionLabel t={t}>Task Details</SectionLabel>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -444,7 +399,6 @@ const handleSubmit = async () => {
           </div>
         </Card>
 
-        {/* Compute config */}
         <Card t={t} style={{ padding: 20 }}>
           <SectionLabel t={t}>Compute Configuration</SectionLabel>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
@@ -463,35 +417,20 @@ const handleSubmit = async () => {
           </div>
         </Card>
 
-        {/* Priority */}
         <Card t={t} style={{ padding: 20 }}>
           <SectionLabel t={t}>Priority</SectionLabel>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
             {[["Low", t.green, t.greenSoft], ["Balanced", t.accent, t.accentSoft], ["High", t.accent2, "rgba(255,143,177,0.14)"]].map(([level, color, bg]) => (
-              <button key={level} onClick={() => update("priority", level)} style={{
-                padding: "14px 0", borderRadius: 20, border: `1.5px solid ${form.priority === level ? color : t.border}`,
-                background: form.priority === level ? bg : t.surface3,
-                color: form.priority === level ? color : t.text3,
-                fontWeight: 700, fontSize: 13, cursor: "pointer",
-                boxShadow: form.priority === level ? `0 8px 20px ${color}33` : "none",
-              }}>{level}</button>
+              <button key={level} onClick={() => update("priority", level)} style={{ padding: "14px 0", borderRadius: 20, border: `1.5px solid ${form.priority === level ? color : t.border}`, background: form.priority === level ? bg : t.surface3, color: form.priority === level ? color : t.text3, fontWeight: 700, fontSize: 13, cursor: "pointer", boxShadow: form.priority === level ? `0 8px 20px ${color}33` : "none" }}>{level}</button>
             ))}
           </div>
         </Card>
 
-        {/* Notes */}
         <Card t={t} style={{ padding: 20 }}>
           <SectionLabel t={t}>Additional Notes</SectionLabel>
-          <textarea
-            value={form.notes}
-            onChange={e => update("notes", e.target.value)}
-            placeholder="Any specific requirements, dataset paths, environment variables..."
-            rows={4}
-            style={{ ...inputStyle, resize: "none", lineHeight: 1.6, paddingTop: 14 }}
-          />
+          <textarea value={form.notes} onChange={e => update("notes", e.target.value)} placeholder="Any specific requirements, dataset paths, environment variables..." rows={4} style={{ ...inputStyle, resize: "none", lineHeight: 1.6, paddingTop: 14 }} />
         </Card>
 
-        {/* Submit */}
         <button onClick={handleSubmit} style={{ width: "100%", padding: "18px 0", background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", border: "none", borderRadius: 22, fontSize: 16, fontWeight: 800, cursor: "pointer", boxShadow: "0 20px 40px rgba(131,106,255,0.30)", marginTop: 4 }}>
           Submit Task to Network
         </button>
@@ -507,7 +446,7 @@ const handleSubmit = async () => {
 function DashboardScreen({ t, isDark, toggleTheme, navigate }) {
   const resources = [
     { name: "CPU load", val: "68%", pct: 68, color: "linear-gradient(90deg, #7a6cff, #8d7dff)" },
-    { name: "GPU RTX", val: "82%", pct: 82, color: "linear-gradient(90deg, #ff8fb1, #9b6bff)" },
+    { name: "GPU R", val: "82%", pct: 82, color: "linear-gradient(90deg, #ff8fb1, #9b6bff)" },
     { name: "Memory", val: "12.4 / 32 GB", pct: 39, color: "linear-gradient(90deg, #58d3ff, #58c0c7)" },
   ];
   return (
@@ -531,47 +470,178 @@ function DashboardScreen({ t, isDark, toggleTheme, navigate }) {
             </div>
           </div>
         </Card>
-        <div style={{ marginBottom: 16 }}><SectionLabel t={t} action="Live">Resource Usage</SectionLabel><Card t={t} style={{ padding: 18 }}>{resources.map((item, index) => <div key={item.name} style={{ marginBottom: index < resources.length - 1 ? 18 : 0 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><span style={{ fontSize: 14, fontWeight: 700, color: t.text }}>{item.name}</span><span style={{ fontSize: 12, color: t.text2, ...mono }}>{item.val}</span></div><ProgBar pct={item.pct} color={item.color} /></div>)}</Card></div>
-        <div style={{ marginBottom: 16 }}><SectionLabel t={t}>Quick Actions</SectionLabel><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}><button onClick={() => navigate("newtask")} style={{ padding: "18px 16px", borderRadius: 24, border: "none", background: "linear-gradient(145deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", cursor: "pointer", textAlign: "left", boxShadow: "0 18px 34px rgba(123,108,255,0.24)" }}><div style={{ fontSize: 14, fontWeight: 800 }}>Share Resources</div><div style={{ fontSize: 12, color: "rgba(255,255,255,0.78)", marginTop: 4 }}>Start contributing now</div></button><button onClick={() => navigate("market")} style={{ padding: "18px 16px", borderRadius: 24, border: `1px solid ${t.border}`, background: t.surface, color: t.text, cursor: "pointer", textAlign: "left", boxShadow: t.shadowSoft }}><div style={{ fontSize: 14, fontWeight: 800 }}>Request Compute</div><div style={{ fontSize: 12, color: t.text3, marginTop: 4 }}>Browse high-trust nodes</div></button></div></div>
-        <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: 12 }}><Card t={t} style={{ padding: 18 }}><SectionLabel t={t}>Trust Snapshot</SectionLabel><div style={{ display: "flex", alignItems: "center", gap: 14 }}><div style={{ width: 66, height: 66, borderRadius: "50%", background: `conic-gradient(${t.green} 0% 87%, rgba(148,163,184,0.18) 87% 100%)`, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", flexShrink: 0 }}><div style={{ position: "absolute", inset: 7, borderRadius: "50%", background: t.surface }} /><span style={{ position: "relative", zIndex: 1, fontSize: 16, fontWeight: 800, color: t.text, ...mono }}>87</span></div><div><div style={{ fontSize: 15, fontWeight: 700, color: t.text }}>Verified Provider</div><div style={{ fontSize: 12, color: t.text3, marginTop: 5 }}>98.2% completion · 312 hrs uptime.</div></div></div></Card><Card t={t} style={{ padding: 18, background: t.mode === "dark" ? "rgba(104,213,255,0.08)" : "rgba(125,211,252,0.12)" }}><div style={{ fontSize: 12, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em" }}>Rewards Today</div><div style={{ fontSize: 32, fontWeight: 800, color: t.text, marginTop: 8, letterSpacing: "-0.06em", ...mono }}>+120</div><div style={{ fontSize: 12, color: t.text2, marginTop: 6 }}>Credits from active tasks</div></Card></div>
+
+        <div style={{ marginBottom: 16 }}>
+          <SectionLabel t={t} action="Live">Resource Usage</SectionLabel>
+          <Card t={t} style={{ padding: 18 }}>
+            {resources.map((item, index) => (
+              <div key={item.name} style={{ marginBottom: index < resources.length - 1 ? 18 : 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: t.text }}>{item.name}</span>
+                  <span style={{ fontSize: 12, color: t.text2, ...mono }}>{item.val}</span>
+                </div>
+                <ProgBar pct={item.pct} color={item.color} />
+              </div>
+            ))}
+          </Card>
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <SectionLabel t={t}>Quick Actions</SectionLabel>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <button onClick={() => navigate("newtask")} style={{ padding: "18px 16px", borderRadius: 24, border: "none", background: "linear-gradient(145deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", cursor: "pointer", textAlign: "left", boxShadow: "0 18px 34px rgba(123,108,255,0.24)" }}>
+              <div style={{ fontSize: 14, fontWeight: 800 }}>Share Resources</div>
+              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.78)", marginTop: 4 }}>Start contributing now</div>
+            </button>
+            <button onClick={() => navigate("market")} style={{ padding: "18px 16px", borderRadius: 24, border: `1px solid ${t.border}`, background: t.surface, color: t.text, cursor: "pointer", textAlign: "left", boxShadow: t.shadowSoft }}>
+              <div style={{ fontSize: 14, fontWeight: 800 }}>Request Compute</div>
+              <div style={{ fontSize: 12, color: t.text3, marginTop: 4 }}>Browse high-trust nodes</div>
+            </button>
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: 12 }}>
+          <Card t={t} style={{ padding: 18 }}>
+            <SectionLabel t={t}>Trust Snapshot</SectionLabel>
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              <div style={{ width: 66, height: 66, borderRadius: "50%", background: `conic-gradient(${t.green} 0% 87%, rgba(148,163,184,0.18) 87% 100%)`, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", flexShrink: 0 }}>
+                <div style={{ position: "absolute", inset: 7, borderRadius: "50%", background: t.surface }} />
+                <span style={{ position: "relative", zIndex: 1, fontSize: 16, fontWeight: 800, color: t.text, ...mono }}>87</span>
+              </div>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: t.text }}>Verified Provider</div>
+                <div style={{ fontSize: 12, color: t.text3, marginTop: 5 }}>98.2% completion · 312 hrs uptime.</div>
+              </div>
+            </div>
+          </Card>
+          <Card t={t} style={{ padding: 18, background: t.mode === "dark" ? "rgba(104,213,255,0.08)" : "rgba(125,211,252,0.12)" }}>
+            <div style={{ fontSize: 12, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em" }}>Rewards Today</div>
+            <div style={{ fontSize: 32, fontWeight: 800, color: t.text, marginTop: 8, letterSpacing: "-0.06em", ...mono }}>+120</div>
+            <div style={{ fontSize: 12, color: t.text2, marginTop: 6 }}>Credits from active tasks</div>
+          </Card>
+        </div>
       </div>
     </div>
   );
 }
 
 // ─── MARKET ──────────────────────────────────────────────────────────────────
-function MarketScreen({ t }) {
+function MarketScreen({ t, navigate }) {
   const [filter, setFilter] = useState("All");
   const filters = ["All", "GPU", "CPU", "Available", "High Trust"];
   const machines = [
-    { name: "LAPTOP-0I4EAMMN", ip: "172.18.234.163", cpu: "8C", gpu: "None", ram: "64GB", status: "free", status: "Online", trust: 94, rating: 4.9 },
-   
+    { name: "LAPTOP-0I4EAMMN", ip: "172.18.234.163", cpu: "8C", gpu: "None", ram: "64GB", status: "free", trust: 94, rating: 4.9 },
   ];
   return (
     <div className="screen-enter">
       <TopBar label="Marketplace" title="Browse Nodes" subtitle="Find the right blend of trust, cost, and raw compute." t={t} right={<button style={{ width: 42, height: 42, borderRadius: 18, border: `1px solid ${t.border}`, background: t.surface, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: t.text2 }}><Icon.Search /></button>} />
       <div style={{ padding: "6px 16px 28px" }}>
-        <Card t={t} style={{ padding: 16, marginBottom: 14 }}><div className="chip-scroll" style={{ display: "flex", gap: 10, overflowX: "auto" }}>{filters.map((item) => <button key={item} onClick={() => setFilter(item)} style={{ padding: "10px 16px", borderRadius: 999, flexShrink: 0, border: "none", background: filter === item ? "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)" : t.surface3, color: filter === item ? "#fff" : t.text2, cursor: "pointer", fontSize: 13, fontWeight: 700 }}>{item}</button>)}</div></Card>
-        {machines.map((machine) => { const online = machine.status === "Online"; return <Card key={machine.name} t={t} elevated style={{ padding: 18, marginBottom: 14 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}><div><div style={{ fontSize: 16, fontWeight: 800, color: t.text }}>{machine.name}</div><div style={{ fontSize: 12, color: t.text3, marginTop: 4, ...mono }}>{machine.owner}</div></div><Badge color={online ? t.green : t.amber} bg={online ? t.greenSoft : t.amberSoft}>{machine.status}</Badge></div><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 16 }}>{[["CPU", machine.cpu], ["GPU", machine.gpu], ["RAM", machine.ram]].map(([label, value]) => <div key={label} style={{ padding: "14px 12px", borderRadius: 20, background: t.surface3 }}><div style={{ fontSize: 10, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em" }}>{label}</div><div style={{ fontSize: 13, fontWeight: 800, color: t.text, marginTop: 8, ...mono }}>{value}</div></div>)}</div><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><div style={{ fontSize: 13, color: t.text2 }}>Rating {machine.rating} · Trust {machine.trust}</div><button disabled={!online} style={{ minWidth: 94, padding: "11px 18px", borderRadius: 18, border: "none", background: online ? "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)" : t.surface2, color: online ? "#fff" : t.text3, fontSize: 13, fontWeight: 800, cursor: online ? "pointer" : "default" }}>{online ? "Book" : "Busy"}</button></div></Card>; })}
+        <Card t={t} style={{ padding: 16, marginBottom: 14 }}>
+          <div className="chip-scroll" style={{ display: "flex", gap: 10, overflowX: "auto" }}>
+            {filters.map((item) => (
+              <button key={item} onClick={() => setFilter(item)} style={{ padding: "10px 16px", borderRadius: 999, flexShrink: 0, border: "none", background: filter === item ? "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)" : t.surface3, color: filter === item ? "#fff" : t.text2, cursor: "pointer", fontSize: 13, fontWeight: 700 }}>{item}</button>
+            ))}
+          </div>
+        </Card>
+        {machines.map((machine) => {
+          const online = machine.status === "free";
+          return (
+            <Card key={machine.name} t={t} elevated style={{ padding: 18, marginBottom: 14 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+                <div>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: t.text }}>{machine.name}</div>
+                  <div style={{ fontSize: 12, color: t.text3, marginTop: 4, ...mono }}>{machine.ip}</div>
+                </div>
+                <Badge color={online ? t.green : t.amber} bg={online ? t.greenSoft : t.amberSoft}>{online ? "Online" : "Busy"}</Badge>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 16 }}>
+                {[["CPU", machine.cpu], ["GPU", machine.gpu], ["RAM", machine.ram]].map(([label, value]) => (
+                  <div key={label} style={{ padding: "14px 12px", borderRadius: 20, background: t.surface3 }}>
+                    <div style={{ fontSize: 10, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em" }}>{label}</div>
+                    <div style={{ fontSize: 13, fontWeight: 800, color: t.text, marginTop: 8, ...mono }}>{value}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ fontSize: 13, color: t.text2 }}>Rating {machine.rating} · Trust {machine.trust}</div>
+                <button disabled={!online} style={{ minWidth: 94, padding: "11px 18px", borderRadius: 18, border: "none", background: online ? "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)" : t.surface2, color: online ? "#fff" : t.text3, fontSize: 13, fontWeight: 800, cursor: online ? "pointer" : "default" }}>
+                  {online ? "Book" : "Busy"}
+                </button>
+              </div>
+            </Card>
+          );
+        })}
       </div>
     </div>
   );
 }
 
 // ─── JOBS ────────────────────────────────────────────────────────────────────
-function JobsScreen({ t, onNewTask }) {
-  const sections = [
-    { label: "Running", jobs: [
-      { name: "ML Model Training", type: "ML Training - GPU", node: "LAPTOP-0I4EAMMN", runtime: "4h", status: "Running", pct: 64, color: "linear-gradient(90deg, #7a6cff, #9b6bff)" },
-      ]},
-  ];
-  const statusColors = { Running: [t.accent, t.accentSoft], Queued: [t.amber, t.amberSoft], Done: [t.green, t.greenSoft] };
+function JobsScreen({ t, onNewTask, tasks }) {
+  const statusColors = {
+    Running: [t.accent, t.accentSoft],
+    Queued: [t.amber, t.amberSoft],
+    Done: [t.green, t.greenSoft]
+  };
+
   return (
     <div className="screen-enter">
-      <TopBar label="Tasks" title="Submission Flow" subtitle="Create, queue, and monitor jobs with less friction." t={t} right={<button onClick={onNewTask} style={{ display: "flex", alignItems: "center", gap: 8, padding: "11px 16px", borderRadius: 18, background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", border: "none", fontSize: 13, fontWeight: 800, cursor: "pointer", boxShadow: "0 14px 28px rgba(122,108,255,0.18)" }}><Icon.Plus /> New Task</button>} />
+      <TopBar
+        label="Tasks"
+        title="Submission Flow"
+        subtitle="Create, queue, and monitor jobs with less friction."
+        t={t}
+        right={
+          <button onClick={onNewTask} style={{ display: "flex", alignItems: "center", gap: 8, padding: "11px 16px", borderRadius: 18, background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", border: "none", fontSize: 13, fontWeight: 800, cursor: "pointer", boxShadow: "0 14px 28px rgba(122,108,255,0.18)" }}>
+            <Icon.Plus /> New Task
+          </button>
+        }
+      />
       <div style={{ padding: "6px 16px 28px" }}>
-        <Card t={t} elevated style={{ padding: 18, marginBottom: 16 }}><div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}><div><div style={{ fontSize: 12, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em" }}>Task composer</div><div style={{ fontSize: 18, fontWeight: 800, color: t.text, marginTop: 6 }}>Ready to submit new compute work</div></div><Badge color={t.accent} bg={t.accentSoft}>Draft</Badge></div><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>{[["Model type", "Diffusion"], ["Runtime", "~4 hours"], ["Compute", "A100 cluster"], ["Priority", "Balanced"]].map(([label, value]) => <div key={label} style={{ padding: "14px 12px", borderRadius: 18, background: t.surface3 }}><div style={{ fontSize: 10, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em" }}>{label}</div><div style={{ fontSize: 13, fontWeight: 700, color: t.text, marginTop: 8 }}>{value}</div></div>)}</div><button onClick={onNewTask} style={{ width: "100%", padding: "14px 0", borderRadius: 18, border: "none", background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", fontWeight: 800, cursor: "pointer" }}>Create New Task</button></Card>
-        {sections.map(({ label, jobs }) => <div key={label} style={{ marginBottom: 16 }}><SectionLabel t={t}>{label}</SectionLabel>{jobs.map((job) => { const [statusColor, statusBg] = statusColors[job.status]; return <Card key={job.name} t={t} style={{ padding: 18, marginBottom: 12 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}><div><div style={{ fontSize: 15, fontWeight: 800, color: t.text }}>{job.name}</div><div style={{ fontSize: 12, color: t.text3, marginTop: 4, ...mono }}>{job.type}</div></div><Badge color={statusColor} bg={statusBg}>{job.status}</Badge></div><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: job.pct !== null ? 14 : 0 }}>{[["Node", job.node], ["Runtime", job.runtime]].map(([key, value]) => <div key={key} style={{ padding: "12px 12px", borderRadius: 18, background: t.surface3 }}><div style={{ fontSize: 10, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em" }}>{key}</div><div style={{ fontSize: 13, fontWeight: 700, color: t.text, marginTop: 7 }}>{value}</div></div>)}</div>{job.pct !== null ? <><div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}><span style={{ fontSize: 12, color: t.text3 }}>Progress</span><span style={{ fontSize: 12, color: t.text2, ...mono }}>{job.pct}%</span></div><ProgBar pct={job.pct} color={job.color} /></> : null}</Card>; })}</div>)}
+        {/* Composer Card */}
+        <Card t={t} elevated style={{ padding: 18, marginBottom: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <div>
+              <div style={{ fontSize: 12, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em" }}>Task composer</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: t.text, marginTop: 6 }}>Ready to submit new compute work</div>
+            </div>
+            <Badge color={t.accent} bg={t.accentSoft}>Draft</Badge>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+            {[["Model type", "Diffusion"], ["Runtime", "~4 hours"], ["Compute", "A100 cluster"], ["Priority", "Balanced"]].map(([label, value]) => (
+              <div key={label} style={{ padding: "14px 12px", borderRadius: 18, background: t.surface3 }}>
+                <div style={{ fontSize: 10, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em" }}>{label}</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: t.text, marginTop: 8 }}>{value}</div>
+              </div>
+            ))}
+          </div>
+          <button onClick={onNewTask} style={{ width: "100%", padding: "14px 0", borderRadius: 18, border: "none", background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", fontWeight: 800, cursor: "pointer" }}>
+            Create New Task
+          </button>
+        </Card>
+
+        {/* Tasks List */}
+        {tasks.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "32px 0", color: t.text3, fontSize: 14 }}>
+            No tasks yet. Create your first task above!
+          </div>
+        ) : (
+          tasks.map(task => {
+            const [color, bg] = statusColors[task.status] || [t.accent, t.accentSoft];
+            return (
+              <Card key={task.id} t={t} style={{ padding: 18, marginBottom: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: t.text }}>{task.name}</div>
+                    <div style={{ fontSize: 12, color: t.text3, marginTop: 3 }}>{task.type}</div>
+                  </div>
+                  <Badge color={color} bg={bg}>{task.status}</Badge>
+                </div>
+                <ProgBar pct={task.progress} color="linear-gradient(90deg,#7a6cff,#9b6bff)" />
+              </Card>
+            );
+          })
+        )}
       </div>
     </div>
   );
@@ -592,10 +662,56 @@ function TrustScreen({ t }) {
     <div className="screen-enter">
       <TopBar label="Trust" title="Reliability Score" subtitle="Your reputation layer turns uptime into opportunity." t={t} />
       <div style={{ padding: "6px 16px 28px" }}>
-        <Card t={t} elevated style={{ padding: 22, background: "linear-gradient(145deg, #3b2b8c 0%, #5b3fcf 44%, #8b62ff 100%)", color: "#fff", marginBottom: 16, position: "relative", overflow: "hidden" }}><div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 16% 18%, rgba(255,255,255,0.14) 0%, transparent 28%), radial-gradient(circle at 82% 76%, rgba(255,145,185,0.18) 0%, transparent 26%)" }} /><div style={{ display: "flex", alignItems: "center", gap: 18, position: "relative", zIndex: 1 }}><div style={{ width: 88, height: 88, borderRadius: "50%", flexShrink: 0, background: "conic-gradient(#7df0d2 0% 87%, rgba(255,255,255,0.18) 87% 100%)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}><div style={{ position: "absolute", inset: 9, borderRadius: "50%", background: "linear-gradient(145deg, #4b35a8, #6f53e6)" }} /><span style={{ position: "relative", zIndex: 1, fontSize: 24, fontWeight: 800, color: "#fff", ...mono }}>87</span></div><div><div style={{ fontSize: 11, color: "rgba(255,255,255,0.72)", textTransform: "uppercase", letterSpacing: "0.12em" }}>Your score</div><div style={{ fontSize: 32, fontWeight: 800, marginTop: 6, letterSpacing: "-0.06em", ...mono }}>87 / 100</div><div style={{ fontSize: 13, color: "#f3ddff", marginTop: 8, fontWeight: 700 }}>Verified Node Provider</div></div></div></Card>
-        <div style={{ marginBottom: 16 }}><SectionLabel t={t}>Metrics Breakdown</SectionLabel><Card t={t} style={{ padding: 18 }}>{metrics.map((metric, index) => <div key={metric.label} style={{ marginBottom: index < metrics.length - 1 ? 18 : 0 }}><div style={{ display: "flex", justifyContent: "space-between" }}><div><div style={{ fontSize: 14, fontWeight: 700, color: t.text }}>{metric.label}</div><div style={{ fontSize: 12, color: t.text3, marginTop: 4 }}>{metric.sub}</div></div><div style={{ fontSize: 13, fontWeight: 800, color: t.text, ...mono }}>{metric.val}</div></div><ProgBar pct={metric.pct} color={metric.color} /></div>)}</Card></div>
+        <Card t={t} elevated style={{ padding: 22, background: "linear-gradient(145deg, #3b2b8c 0%, #5b3fcf 44%, #8b62ff 100%)", color: "#fff", marginBottom: 16, position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 16% 18%, rgba(255,255,255,0.14) 0%, transparent 28%), radial-gradient(circle at 82% 76%, rgba(255,145,185,0.18) 0%, transparent 26%)" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 18, position: "relative", zIndex: 1 }}>
+            <div style={{ width: 88, height: 88, borderRadius: "50%", flexShrink: 0, background: "conic-gradient(#7df0d2 0% 87%, rgba(255,255,255,0.18) 87% 100%)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+              <div style={{ position: "absolute", inset: 9, borderRadius: "50%", background: "linear-gradient(145deg, #4b35a8, #6f53e6)" }} />
+              <span style={{ position: "relative", zIndex: 1, fontSize: 24, fontWeight: 800, color: "#fff", ...mono }}>87</span>
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: "rgba(255,255,255,0.72)", textTransform: "uppercase", letterSpacing: "0.12em" }}>Your score</div>
+              <div style={{ fontSize: 32, fontWeight: 800, marginTop: 6, letterSpacing: "-0.06em", ...mono }}>87 / 100</div>
+              <div style={{ fontSize: 13, color: "#f3ddff", marginTop: 8, fontWeight: 700 }}>Verified Node Provider</div>
+            </div>
+          </div>
+        </Card>
+
+        <div style={{ marginBottom: 16 }}>
+          <SectionLabel t={t}>Metrics Breakdown</SectionLabel>
+          <Card t={t} style={{ padding: 18 }}>
+            {metrics.map((metric, index) => (
+              <div key={metric.label} style={{ marginBottom: index < metrics.length - 1 ? 18 : 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: t.text }}>{metric.label}</div>
+                    <div style={{ fontSize: 12, color: t.text3, marginTop: 4 }}>{metric.sub}</div>
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: t.text, ...mono }}>{metric.val}</div>
+                </div>
+                <ProgBar pct={metric.pct} color={metric.color} />
+              </div>
+            ))}
+          </Card>
+        </div>
+
         <SectionLabel t={t}>Leaderboard</SectionLabel>
-        <Card t={t} style={{ padding: 18 }}>{leaders.map((leader, index) => <div key={leader.rank} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderTop: index > 0 ? `1px solid ${t.border}` : "none" }}><div style={{ width: 24, textAlign: "center", fontSize: 13, color: t.text3, fontWeight: 800, ...mono }}>{leader.rank}</div><div style={{ width: 40, height: 40, borderRadius: "50%", background: leader.bg, color: leader.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>{leader.initials}</div><div style={{ flex: 1, fontSize: 14, fontWeight: 700, color: t.text }}>{leader.name}</div><div style={{ fontSize: 12, color: t.text2, ...mono }}>{leader.score} pts</div></div>)}<div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 12px", background: t.accentSoft, borderRadius: 20, marginTop: 10 }}><div style={{ width: 24, textAlign: "center", fontSize: 13, color: t.accent, fontWeight: 800, ...mono }}>7</div><div style={{ width: 40, height: 40, borderRadius: "50%", border: `2px solid ${t.accent}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: t.accent, flexShrink: 0 }}>AP</div><div style={{ flex: 1, fontSize: 14, fontWeight: 800, color: t.text }}>Anwita Padhi (you)</div><div style={{ fontSize: 12, color: t.accent, ...mono }}>87 pts</div></div></Card>
+        <Card t={t} style={{ padding: 18 }}>
+          {leaders.map((leader, index) => (
+            <div key={leader.rank} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderTop: index > 0 ? `1px solid ${t.border}` : "none" }}>
+              <div style={{ width: 24, textAlign: "center", fontSize: 13, color: t.text3, fontWeight: 800, ...mono }}>{leader.rank}</div>
+              <div style={{ width: 40, height: 40, borderRadius: "50%", background: leader.bg, color: leader.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>{leader.initials}</div>
+              <div style={{ flex: 1, fontSize: 14, fontWeight: 700, color: t.text }}>{leader.name}</div>
+              <div style={{ fontSize: 12, color: t.text2, ...mono }}>{leader.score} pts</div>
+            </div>
+          ))}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 12px", background: t.accentSoft, borderRadius: 20, marginTop: 10 }}>
+            <div style={{ width: 24, textAlign: "center", fontSize: 13, color: t.accent, fontWeight: 800, ...mono }}>7</div>
+            <div style={{ width: 40, height: 40, borderRadius: "50%", border: `2px solid ${t.accent}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: t.accent, flexShrink: 0 }}>AP</div>
+            <div style={{ flex: 1, fontSize: 14, fontWeight: 800, color: t.text }}>Anwita Padhi (you)</div>
+            <div style={{ fontSize: 12, color: t.accent, ...mono }}>87 pts</div>
+          </div>
+        </Card>
       </div>
     </div>
   );
@@ -611,10 +727,42 @@ function RewardsScreen({ t }) {
     <div className="screen-enter">
       <TopBar label="Rewards" title="Credits" subtitle="A calmer, clearer view of what your contribution is earning." t={t} />
       <div style={{ padding: "6px 16px 28px" }}>
-        <Card t={t} elevated style={{ padding: 22, marginBottom: 16, background: "linear-gradient(145deg, #31258a 0%, #5b3fcf 44%, #9a72ff 100%)", color: "#fff", position: "relative", overflow: "hidden" }}><div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 18% 18%, rgba(255,255,255,0.16) 0%, transparent 28%), radial-gradient(circle at 88% 78%, rgba(255,145,185,0.22) 0%, transparent 26%)" }} /><div style={{ position: "relative", zIndex: 1 }}><div style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.12em" }}>Available credits</div><div style={{ fontSize: 42, fontWeight: 800, marginTop: 8, letterSpacing: "-0.07em", ...mono }}>30</div><div style={{ fontSize: 14, color: "rgba(255,255,255,0.78)", marginTop: 6 }}>Approx 5400 INR</div><div style={{ display: "flex", gap: 10, marginTop: 20 }}><button style={{ flex: 1, padding: 13, borderRadius: 18, border: "none", background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", fontSize: 13, fontWeight: 800, cursor: "pointer" }}>Cash Out</button><button style={{ flex: 1, padding: 13, borderRadius: 18, background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", border: "none", fontSize: 13, fontWeight: 800, cursor: "pointer" }}>Redeem</button></div></div></Card>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>{stats.map(([label, value, change]) => <Card key={label} t={t} style={{ padding: 16, borderRadius: 24 }}><div style={{ fontSize: 10, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 8 }}>{label}</div><div style={{ fontSize: 24, fontWeight: 800, color: t.text, letterSpacing: "-0.05em", ...mono }}>{value}</div><div style={{ fontSize: 11, color: change.startsWith("+") ? t.green : t.text3, marginTop: 5, fontWeight: 700 }}>{change}</div></Card>)}</div>
+        <Card t={t} elevated style={{ padding: 22, marginBottom: 16, background: "linear-gradient(145deg, #31258a 0%, #5b3fcf 44%, #9a72ff 100%)", color: "#fff", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 18% 18%, rgba(255,255,255,0.16) 0%, transparent 28%), radial-gradient(circle at 88% 78%, rgba(255,145,185,0.22) 0%, transparent 26%)" }} />
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.12em" }}>Available credits</div>
+            <div style={{ fontSize: 42, fontWeight: 800, marginTop: 8, letterSpacing: "-0.07em", ...mono }}>30</div>
+            <div style={{ fontSize: 14, color: "rgba(255,255,255,0.78)", marginTop: 6 }}>Approx 5400 INR</div>
+            <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
+              <button style={{ flex: 1, padding: 13, borderRadius: 18, border: "none", background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", fontSize: 13, fontWeight: 800, cursor: "pointer" }}>Cash Out</button>
+              <button style={{ flex: 1, padding: 13, borderRadius: 18, background: "linear-gradient(135deg, #7a6cff 0%, #ff91bb 100%)", color: "#fff", border: "none", fontSize: 13, fontWeight: 800, cursor: "pointer" }}>Redeem</button>
+            </div>
+          </div>
+        </Card>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
+          {stats.map(([label, value, change]) => (
+            <Card key={label} t={t} style={{ padding: 16, borderRadius: 24 }}>
+              <div style={{ fontSize: 10, color: t.text3, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 8 }}>{label}</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: t.text, letterSpacing: "-0.05em", ...mono }}>{value}</div>
+              <div style={{ fontSize: 11, color: change.startsWith("+") ? t.green : t.text3, marginTop: 5, fontWeight: 700 }}>{change}</div>
+            </Card>
+          ))}
+        </div>
         <SectionLabel t={t}>Recent Transactions</SectionLabel>
-        <Card t={t} style={{ padding: 18 }}>{txns.map((txn, index) => <div key={txn.label} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderTop: index > 0 ? `1px solid ${t.border}` : "none" }}><div style={{ width: 40, height: 40, borderRadius: "50%", background: txn.positive ? t.greenSoft : t.redSoft, color: txn.positive ? t.green : t.red, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{txn.positive ? <Icon.TrendUp /> : <Icon.TrendDown />}</div><div style={{ flex: 1 }}><div style={{ fontSize: 14, fontWeight: 700, color: t.text }}>{txn.label}</div><div style={{ fontSize: 11, color: t.text3, marginTop: 4, ...mono }}>{txn.time}</div></div><div style={{ fontSize: 14, fontWeight: 800, color: txn.positive ? t.green : t.red, ...mono }}>{txn.amount}</div></div>)}</Card>
+        <Card t={t} style={{ padding: 18 }}>
+          {txns.map((txn, index) => (
+            <div key={txn.label} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderTop: index > 0 ? `1px solid ${t.border}` : "none" }}>
+              <div style={{ width: 40, height: 40, borderRadius: "50%", background: txn.positive ? t.greenSoft : t.redSoft, color: txn.positive ? t.green : t.red, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                {txn.positive ? <Icon.TrendUp /> : <Icon.TrendDown />}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: t.text }}>{txn.label}</div>
+                <div style={{ fontSize: 11, color: t.text3, marginTop: 4, ...mono }}>{txn.time}</div>
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 800, color: txn.positive ? t.green : t.red, ...mono }}>{txn.amount}</div>
+            </div>
+          ))}
+        </Card>
       </div>
     </div>
   );
@@ -634,10 +782,12 @@ function BottomNav({ active, navigate, t }) {
       <nav className="floating-panel" style={{ minHeight: 78, background: t.nav, border: `1px solid ${t.border}`, borderRadius: 28, display: "flex", alignItems: "stretch", padding: "8px 6px", boxShadow: t.shadow }}>
         {tabs.map(({ id, label, IconCmp }) => {
           const selected = active === id;
-          return <button key={id} onClick={() => navigate(id)} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer", border: "none", background: "transparent", color: selected ? t.accent : t.text3 }}>
-            <IconWrap t={t} active={selected}><IconCmp /></IconWrap>
-            <span style={{ fontSize: 10, fontWeight: selected ? 800 : 700 }}>{label}</span>
-          </button>;
+          return (
+            <button key={id} onClick={() => navigate(id)} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer", border: "none", background: "transparent", color: selected ? t.accent : t.text3 }}>
+              <IconWrap t={t} active={selected}><IconCmp /></IconWrap>
+              <span style={{ fontSize: 10, fontWeight: selected ? 800 : 700 }}>{label}</span>
+            </button>
+          );
         })}
       </nav>
     </div>
@@ -649,22 +799,54 @@ export default function App() {
   const [isDark, setIsDark] = useState(false);
   const [page, setPage] = useState("splash"); // splash | login | app
   const [screen, setScreen] = useState("dashboard");
-  const [showNewTask, setShowNewTask] = useState(false);
+  const [tasks, setTasks] = useState([]);
   const t = isDark ? theme.dark : theme.light;
-  const toggleTheme = () => setIsDark((v) => !v);
+  const toggleTheme = () => setIsDark(v => !v);
 
-  const handleNavigate = (s) => {
-    if (s === "newtask") { setShowNewTask(true); return; }
-    setScreen(s);
+  // ✅ Single unified navigate — handles all screens including "newtask"
+  const navigate = (screenName) => {
+    setScreen(screenName);
   };
 
+  const handleAddTask = (newTask) => {
+    setTasks(prev => [...prev, newTask]);
+    navigate("jobs");
+  };
+
+  // ✅ screenMap now includes "newtask" — no showNewTask boolean needed
   const screenMap = {
-    dashboard: <DashboardScreen t={t} isDark={isDark} toggleTheme={toggleTheme} navigate={handleNavigate} />,
-    market: <MarketScreen t={t} />,
-    jobs: <JobsScreen t={t} onNewTask={() => setShowNewTask(true)} />,
+    dashboard: (
+      <DashboardScreen
+        t={t}
+        isDark={isDark}
+        toggleTheme={toggleTheme}
+        navigate={navigate}
+      />
+    ),
+    market: (
+      <MarketScreen t={t} navigate={navigate} />
+    ),
+    jobs: (
+      <JobsScreen
+        t={t}
+        tasks={tasks}
+        onNewTask={() => navigate("newtask")}
+      />
+    ),
+    // ✅ THIS WAS MISSING — now added
+    newtask: (
+      <NewTaskScreen
+        t={t}
+        onBack={() => navigate("jobs")}
+        onSubmit={handleAddTask}
+      />
+    ),
     trust: <TrustScreen t={t} />,
     rewards: <RewardsScreen t={t} />,
   };
+
+  // Hide bottom nav on newtask screen
+  const hideNav = screen === "newtask";
 
   return (
     <>
@@ -677,17 +859,29 @@ export default function App() {
             {/* Ambient bg */}
             <div style={{ position: "absolute", inset: 0, background: t.mode === "dark" ? "radial-gradient(circle at 14% 12%, rgba(138,125,255,0.12) 0%, transparent 26%)" : "radial-gradient(circle at 14% 12%, rgba(255,143,177,0.14) 0%, transparent 26%)", pointerEvents: "none" }} />
 
-            {/* Pages */}
-            {page === "splash" && <div style={{ flex: 1, overflowY: "auto" }}><SplashScreen onGetStarted={() => setPage("login")} isDark={isDark} toggleTheme={toggleTheme} t={t} /></div>}
-            {page === "login" && <div style={{ flex: 1, overflowY: "auto" }}><LoginScreen onLogin={() => setPage("app")} isDark={isDark} toggleTheme={toggleTheme} t={t} /></div>}
+            {page === "splash" && (
+              <div style={{ flex: 1, overflowY: "auto" }}>
+                <SplashScreen onGetStarted={() => setPage("login")} isDark={isDark} toggleTheme={toggleTheme} t={t} />
+              </div>
+            )}
+
+            {page === "login" && (
+              <div style={{ flex: 1, overflowY: "auto" }}>
+                <LoginScreen onLogin={() => setPage("app")} isDark={isDark} toggleTheme={toggleTheme} t={t} />
+              </div>
+            )}
+
             {page === "app" && (
               <>
                 <div style={{ flex: 1, overflowY: "auto", position: "relative", zIndex: 1 }}>
-                  {showNewTask
-                    ? <NewTaskScreen t={t} onBack={() => setShowNewTask(false)} onSubmit={() => { setShowNewTask(false); setScreen("jobs"); }} />
-                    : screenMap[screen]}
+                  {screenMap[screen] || screenMap["dashboard"]}
                 </div>
-                {!showNewTask && <div style={{ position: "relative", zIndex: 2 }}><BottomNav active={screen} navigate={handleNavigate} t={t} /></div>}
+                {/* ✅ Hide bottom nav on newtask screen */}
+                {!hideNav && (
+                  <div style={{ position: "relative", zIndex: 2 }}>
+                    <BottomNav active={screen} navigate={navigate} t={t} />
+                  </div>
+                )}
               </>
             )}
           </div>

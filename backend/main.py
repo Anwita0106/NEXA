@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+import uuid
 import os
 import requests
 
@@ -59,6 +60,10 @@ def register_node(node: dict):
 def get_nodes():
     return nodes
 
+@app.get("/jobs")
+def get_jobs():
+    return jobs
+
 # -----------------------------
 # Clear All Nodes (Debug helper)
 # -----------------------------
@@ -74,6 +79,7 @@ def clear_nodes():
 # -----------------------------
 @app.post("/create_task")
 def create_task(task: dict):
+
     print("\n=== TASK RECEIVED FROM FRONTEND ===")
     print("Task data:", task)
     print("All registered nodes:", nodes)
@@ -82,7 +88,14 @@ def create_task(task: dict):
         print("ERROR: No worker nodes available")
         return {"error": "No worker nodes available"}
 
-    # Pick the most recently registered node
+
+    task_id = str(uuid.uuid4())
+
+    task["task_id"] = task_id
+
+    jobs.append(task)
+
+    # Pick most recent worker
     selected_node = nodes[-1]
     worker_ip = selected_node.get("ip")
 
@@ -90,31 +103,53 @@ def create_task(task: dict):
     print(f"Sending task to worker IP: {worker_ip}")
 
     try:
+
         response = requests.post(
             f"http://{worker_ip}:6000/run_task",
             json=task,
             timeout=20
         )
+
         print("Worker response:", response.text)
+
+        # ✅ STEP 4 — RETURN task_id
         return {
+            "task_id": task_id,
             "message": "Task Executed",
             "worker": worker_ip,
             "result": response.json()
         }
 
     except requests.exceptions.ConnectionError:
+
         msg = f"Cannot reach worker at {worker_ip}:6000 — is worker_server.py running?"
+
         print("ERROR:", msg)
-        return {"error": msg}
+
+        return {
+            "task_id": task_id,
+            "error": msg
+        }
 
     except requests.exceptions.Timeout:
+
         msg = f"Worker at {worker_ip}:6000 timed out"
+
         print("ERROR:", msg)
-        return {"error": msg}
+
+        return {
+            "task_id": task_id,
+            "error": msg
+        }
 
     except Exception as e:
+
         print("Unexpected error:", str(e))
-        return {"error": str(e)}
+
+        return {
+            "task_id": task_id,
+            "error": str(e)
+        }
 
 # -----------------------------
 # Upload Python File (Optional)
