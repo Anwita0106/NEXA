@@ -1,11 +1,10 @@
-**NEXA – Turning Idle Computers into Shared Computing Power** 
+<u>**NEXA – Turning Idle Computers into Shared Computing Power**</u>
 
 **Overview**
 
 Have you ever wanted to train an AI model or run a research experiment but didn't have access to a powerful GPU?  
 At the same time, millions of laptops and desktops around the world sit idle for hours every day.  
-NEXA was built to connect these two worlds. NEXA is a decentralized compute-sharing platform that allows people with unused CPU or GPU resources to share them with students, developers, and researchers who need extra computing power.  
-Instead of letting valuable hardware remain unused, we create a network where resources can be shared securely and efficiently.  
+NEXA was built to connect these two worlds. NEXA is a decentralized compute-sharing platform that allows people with unused CPU or GPU resources to share them with students, developers, and researchers who need extra computing power. Instead of letting valuable hardware remain unused, we create a network where resources can be shared securely and efficiently.  
 Our goal is simple: make computing power more accessible to everyone.
 
 **The Problem**
@@ -15,8 +14,7 @@ Meanwhile, countless personal computers, gaming PCs, and workstations remain und
 We saw an opportunity to bridge this gap.  
 What if unused computing resources could be shared with people who actually need them?  
 That question led to the creation of NEXA.  
-What NEXA Does is it creates a trusted marketplace where contributors can offer their idle computing resources and users can discover, request, and utilize those resources for computational workloads.  
-The platform manages resource discovery, task allocation, monitoring, trust verification, and contribution tracking through a simple and user-friendly interface.  
+What NEXA Does is it creates a trusted marketplace where contributors can offer their idle computing resources and users can discover, request, and utilize those resources for computational workloads. The platform manages resource discovery, task allocation, monitoring, trust verification, and contribution tracking through a simple and user-friendly interface.  
 
 **Key Features**
 
