@@ -21,48 +21,56 @@ The platform manages resource discovery, task allocation, monitoring, trust veri
 **Key Features**
 
 *Resource Marketplace*
+
 Users can browse available compute nodes and compare their specifications before selecting a suitable system.
+
 Each node displays:
-CPU configuration
-GPU availability
-RAM capacity
-Current availability status
-Reliability score
+(i) CPU configuration
+(ii) GPU availability
+(iii) RAM capacity
+(iv) Current availability status
+(v) Reliability score
+
 This makes it easy to find the right machine for a specific workload.
 
 *Real-Time Dashboard*
+
 The dashboard provides a complete view of platform activity, including:
-Active compute nodes
-Running jobs
-Resource utilization
-Network activity
-Contribution statistics
+(i) Active compute nodes
+(ii) Running jobs
+(iii) Resource utilization
+(iv) Network activity
+(v) Contribution statistics
+
 Everything is presented in a simple and easy-to-understand format.
 
 *Task Submission & Execution*
+
 Users can submit different types of workloads such as:
-AI model training
-Research simulations
-Data processing jobs
-General computational tasks
+(i) AI model training
+(ii) Research simulations
+(iii) Data processing jobs
+(iv) General computational tasks
+
 Once submitted, the platform identifies a suitable worker node and assigns the task automatically.
 
 *Trust & Reliability Layer*
-Trust is an important part of any resource-sharing system.
-To help users identify dependable contributors, NEXA maintains a reliability score based on:
-Successful task completion
-System uptime
-Execution accuracy
-Historical performance
-This creates a transparent and trustworthy ecosystem for both contributors and task owners.
+
+Trust is an important part of any resource-sharing system. To help users identify dependable contributors, NEXA maintains a reliability score based on:
+(i) Successful task completion
+(ii) System uptime
+(iii) Execution accuracy
+(iv) Historical performance
+(v) This creates a transparent and trustworthy ecosystem for both contributors and task owners.
 
 *Contribution Rewards*
-To encourage participation, NEXA tracks resource contributions and rewards active users through a credit-based system.
-Contributors can view:
-GPU hours shared
-Jobs completed
-Weekly contribution trends
-Monthly performance metrics
+
+To encourage participation, NEXA tracks resource contributions and rewards active users through a credit-based system. Contributors can view:
+(i) GPU hours shared
+(ii) Jobs completed
+(iii) Weekly contribution trends
+(iv) Monthly performance metrics
+
 The more a user contributes, the more credits they earn within the network.
 
 **How NEXA Works**
@@ -75,31 +83,36 @@ The platform selects the most suitable worker.
 The task is executed on that worker machine.
 Progress and results are returned to the platform.
 Trust scores and contribution credits are updated automatically.
-Technology Stack
-Frontend
+
+**Technology Stack**
+
+*Frontend:*
 React.js
 CSS
 Responsive UI Design
-Backend
+
+*Backend:*
 Python
 FastAPI
 REST APIs
-Infrastructure
+
+*Infrastructure:*
 Worker Nodes
 Central Scheduler
 Resource Registry System
-Future Improvements
+
+**Future Improvements**
 
 While the current prototype demonstrates the core idea, we see several exciting possibilities for future development:
-Docker-based isolated task execution
-Fault tolerance through checkpoint recovery
-Multi-node distributed execution
-Internet-scale resource sharing
-Enhanced node verification and security
-Intelligent workload scheduling using AI
-Our Vision
+(i) Docker-based isolated task execution
+(ii) Fault tolerance through checkpoint recovery
+(iii) Multi-node distributed execution
+(iv) Internet-scale resource sharing
+(v) Enhanced node verification and security
+(iv) Intelligent workload scheduling using AI
 
-We believe access to computing power should not depend on expensive hardware or cloud subscriptions.
-By transforming unused devices into a shared resource network, NEXA aims to make innovation, experimentation, and research more accessible for students, developers, and creators everywhere.
-Every idle computer has potential.
-NEXA helps unlock it. 
+**Our Vision**
+
+We believe access to computing power should not depend on expensive hardware or cloud subscriptions. By transforming unused devices into a shared resource network, NEXA aims to make innovation, experimentation, and research more accessible for students, developers, and creators everywhere.
+
+*Every idle computer has potential. NEXA helps unlock it.*
