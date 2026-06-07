@@ -1,4 +1,4 @@
-**NEXA – Turning Idle Computers into Shared Computing Power**
+ **NEXA – Turning Idle Computers into Shared Computing Power**
 
 **Overview**
 
